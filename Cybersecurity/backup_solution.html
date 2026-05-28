@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Backup Solutions — CyberGuard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            overflow-x: hidden;
+            color: #111;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ================= TOP BAR ================= */
+
+        .top-bar {
+            background: #020515;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .top-bar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .top-bar a {
+            color: #a0a0a0;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .top-bar a:hover {
+            color: #5fe33d;
+        }
+
+        .top-bar-left,
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .top-bar i {
+            color: #5fe33d;
+            margin-right: 6px;
+            font-size: 12px;
+        }
+
+        /* ================= MAIN NAV ================= */
+
+        .main-nav {
+            background: #040823;
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+            transition: .4s;
+        }
+
+        .main-nav.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, .5);
+            background: rgba(4, 8, 35, .97);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 22px;
+            box-shadow: 0 6px 20px rgba(41, 98, 255, .35);
+        }
+
+        .logo-text {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: #5fe33d;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #c8c8c8;
+            font-size: 15px;
+            font-weight: 500;
+            transition: .3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #5fe33d;
+            bottom: -6px;
+            left: 0;
+            transition: .3s;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: #2962ff;
+            color: #fff !important;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: .4s;
+            display: inline-block;
+            box-shadow: 0 6px 20px rgba(41, 98, 255, .3);
+        }
+
+        .nav-cta:hover {
+            background: #4c7dff;
+            transform: translateY(-3px);
+            color: #fff !important;
+            box-shadow: 0 10px 30px rgba(41, 98, 255, .45);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: #040823;
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            padding: 20px 0;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: #c8c8c8;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            transition: .3s;
+        }
+
+        .mobile-menu a:hover {
+            color: #5fe33d;
+        }
+
+        .mobile-menu .nav-cta {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            border-bottom: none;
+        }
+
+        @media(max-width:991px) {
+
+            .nav-links,
+            .nav-cta.desktop-only {
+                display: none !important;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+        }
+
+        @media(max-width:576px) {
+            .top-bar {
+                display: none;
+            }
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background:
+                linear-gradient(to right, rgba(0, 0, 0, .95), rgba(0, 0, 0, .85)),
+                url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: #00ff95;
+            filter: blur(200px);
+            opacity: .07;
+            right: -150px;
+            top: -150px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #2962ff;
+            filter: blur(180px);
+            opacity: .06;
+            left: -100px;
+            bottom: -100px;
+        }
+
+        .hero-label {
+            color: #5fe33d;
+            font-weight: 600;
+            letter-spacing: 3px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-label .dot {
+            width: 8px;
+            height: 8px;
+            background: #5fe33d;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.7);
+            }
+        }
+
+        .hero h1 {
+            color: #fff;
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #5fe33d;
+        }
+
+        .hero p {
+            color: #d6d6d6;
+            line-height: 1.9;
+            max-width: 650px;
+            font-size: 17px;
+            margin-bottom: 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-cyber {
+            background: #2962ff;
+            color: #fff;
+            padding: 16px 38px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: .4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary-cyber:hover {
+            background: #4c7dff;
+            transform: translateY(-4px);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(41, 98, 255, .4);
+        }
+
+        .btn-outline-cyber {
+            border: 2px solid rgba(255, 255, 255, .2);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: .4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-outline-cyber:hover {
+            border-color: #5fe33d;
+            color: #5fe33d;
+            transform: translateY(-4px);
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 16px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 14px;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-badge i {
+            color: #5fe33d;
+            font-size: 20px;
+        }
+
+        /* ================= STATS BAR ================= */
+
+        .stats-bar {
+            background: #f8f9fc;
+            padding: 50px 0;
+            border-bottom: 1px solid #ececec;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .stat-item i {
+            font-size: 32px;
+            color: #2962ff;
+            margin-bottom: 16px;
+        }
+
+        .stat-item h3 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #111;
+        }
+
+        .stat-item h3 span {
+            color: #5fe33d;
+        }
+
+        .stat-item p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ================= SECTION COMMON ================= */
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 65px;
+        }
+
+        .section-title .label {
+            color: #2962ff;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title h2 {
+            font-size: 46px;
+            font-weight: 800;
+            color: #111;
+        }
+
+        .section-title h2 span {
+            color: #5fe33d;
+        }
+
+        .section-title p {
+            color: #666;
+            margin-top: 15px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ================= TAB NAVIGATION ================= */
+
+        .tabs-section {
+            background: #f8f9fc;
+        }
+
+        .tab-nav-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: #fff;
+            border: 2px solid #ececec;
+            border-radius: 16px;
+            padding: 18px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: .4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .tab-btn i {
+            font-size: 22px;
+            color: #2962ff;
+            transition: .3s;
+        }
+
+        .tab-btn:hover {
+            border-color: #2962ff;
+            color: #2962ff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(41, 98, 255, .12);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-color: #2962ff;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(41, 98, 255, .35);
+            transform: translateY(-3px);
+        }
+
+        .tab-btn.active i {
+            color: #5fe33d;
+        }
+
+        /* ================= TAB CONTENT ================= */
+
+        .tab-content-area {
+            display: none;
+            animation: tabFadeIn .5s ease;
+        }
+
+        .tab-content-area.active {
+            display: block;
+        }
+
+        @keyframes tabFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tab Intro Row */
+        .tab-intro {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .tab-intro-text {
+            flex: 1;
+        }
+
+        .tab-intro-text .label {
+            color: #2962ff;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .tab-intro-text h3 {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 18px;
+            color: #111;
+        }
+
+        .tab-intro-text h3 span {
+            color: #5fe33d;
+        }
+
+        .tab-intro-text p {
+            color: #666;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        .tab-intro-visual {
+            flex-shrink: 0;
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #040823, #08164b);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-intro-visual::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #5fe33d;
+            filter: blur(100px);
+            opacity: .12;
+        }
+
+        .tab-intro-visual i {
+            font-size: 90px;
+            color: #5fe33d;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-intro-visual.brand-acronis::before {
+            background: #1a9fff;
+        }
+
+        .tab-intro-visual.brand-acronis i {
+            color: #1a9fff;
+        }
+
+        .tab-intro-visual.brand-veeam::before {
+            background: #00b4d8;
+        }
+
+        .tab-intro-visual.brand-veeam i {
+            color: #00b4d8;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 36px;
+            height: 100%;
+            transition: .4s;
+            border: 1px solid #ececec;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #5fe33d;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #5fe33d;
+            filter: blur(100px);
+            opacity: .06;
+            top: -80px;
+            right: -80px;
+        }
+
+        .feature-card .fc-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(41, 98, 255, .2);
+        }
+
+        .feature-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #111;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* Dark Feature Card */
+        .dark-feature-card {
+            background: #0b1130;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            padding: 36px;
+            height: 100%;
+            transition: .4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #5fe33d;
+        }
+
+        .dark-feature-card::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #5fe33d;
+            filter: blur(100px);
+            opacity: .06;
+            bottom: -80px;
+            right: -80px;
+        }
+
+        .dark-feature-card .fc-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(41, 98, 255, .2);
+        }
+
+        .dark-feature-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #fff;
+        }
+
+        .dark-feature-card p {
+            color: #c8c8c8;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .dark-feature-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dark-feature-card ul li {
+            color: #d2d2d2;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .dark-feature-card ul li i {
+            color: #5fe33d;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Capability Row */
+        .capability-row {
+            background: #0b1130;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            padding: 40px 45px;
+            margin-bottom: 20px;
+            transition: .4s;
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .capability-row:hover {
+            border-color: #5fe33d;
+            transform: translateX(6px);
+        }
+
+        .capability-row .cap-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 22px;
+            flex-shrink: 0;
+            box-shadow: 0 6px 18px rgba(41, 98, 255, .25);
+        }
+
+        .capability-row h4 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .capability-row p {
+            color: #c8c8c8;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* ================= DARK SECTION ================= */
+
+        .dark-section {
+            background: #040823;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #00ff95;
+            filter: blur(200px);
+            opacity: .05;
+            left: -150px;
+            top: -100px;
+        }
+
+        .dark-section .section-title .label {
+            color: #5fe33d;
+        }
+
+        .dark-section .section-title h2 {
+            color: #fff;
+        }
+
+        .dark-section .section-title p {
+            color: #cfcfcf;
+        }
+
+        /* ================= COMPARISON TABLE ================= */
+
+        .compare-section {
+            background: #f8f9fc;
+        }
+
+        .compare-table-wrap {
+            overflow-x: auto;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .06);
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            min-width: 750px;
+        }
+
+        .compare-table thead th {
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            color: #fff;
+            padding: 20px 24px;
+            font-weight: 700;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .compare-table thead th:first-child {
+            text-align: left;
+            border-radius: 24px 0 0 0;
+        }
+
+        .compare-table thead th:last-child {
+            border-radius: 0 24px 0 0;
+        }
+
+        .compare-table tbody td {
+            padding: 18px 24px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+
+        .compare-table tbody td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .compare-table tbody tr:last-child td:first-child {
+            border-radius: 0 0 0 24px;
+        }
+
+        .compare-table tbody tr:last-child td:last-child {
+            border-radius: 0 0 24px 0;
+        }
+
+        .compare-table tbody tr:hover {
+            background: rgba(95, 227, 61, .03);
+        }
+
+        .compare-table .check-green {
+            color: #5fe33d;
+            font-size: 18px;
+        }
+
+        .compare-table .check-gray {
+            color: #ccc;
+            font-size: 18px;
+        }
+
+        /* ================= WORKFLOW STEPS ================= */
+
+        .workflow-step {
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        .step-num {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 26px;
+            font-weight: 800;
+            margin: 0 auto 24px;
+            box-shadow: 0 10px 30px rgba(41, 98, 255, .3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .workflow-step h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .workflow-step p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .step-connector {
+            display: none;
+        }
+
+        @media(min-width:992px) {
+            .step-connector {
+                display: block;
+                position: absolute;
+                top: 64px;
+                left: calc(50% + 45px);
+                width: calc(100% - 90px);
+                height: 2px;
+                background: linear-gradient(to right, rgba(41, 98, 255, .3), rgba(95, 227, 61, .3));
+                z-index: 1;
+            }
+        }
+
+        /* ================= BENEFITS ================= */
+
+        .benefit-box {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            height: 100%;
+            transition: .4s;
+            border: 1px solid #ececec;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .05);
+        }
+
+        .benefit-box:hover {
+            transform: translateY(-10px);
+            border-color: #5fe33d;
+        }
+
+        .benefit-box i {
+            font-size: 45px;
+            color: #2962ff;
+            margin-bottom: 25px;
+        }
+
+        .benefit-box h4 {
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .benefit-box p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            background: linear-gradient(135deg, #040823, #08164b);
+            border-radius: 35px;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: #5fe33d;
+            filter: blur(150px);
+            opacity: .08;
+            top: -100px;
+            right: -100px;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #2962ff;
+            filter: blur(150px);
+            opacity: .06;
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .cta h2 {
+            color: #fff;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta p {
+            color: #d8d8d8;
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.9;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta .btn-primary-cyber {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .site-footer {
+            background: #020515;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #00ff95;
+            filter: blur(220px);
+            opacity: .04;
+            right: -200px;
+            bottom: -200px;
+        }
+
+        .footer-main {
+            padding: 80px 0 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .footer-brand p {
+            color: #909090;
+            line-height: 1.9;
+            margin-top: 18px;
+            font-size: 14px;
+            max-width: 340px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0a0a0;
+            font-size: 16px;
+            transition: .3s;
+        }
+
+        .footer-social a:hover {
+            background: #5fe33d;
+            border-color: #5fe33d;
+            color: #020515;
+            transform: translateY(-3px);
+        }
+
+        .footer-heading {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            position: relative;
+            padding-bottom: 14px;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: #5fe33d;
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+
+        .footer-links a {
+            color: #909090;
+            font-size: 14px;
+            transition: .3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #5fe33d;
+            transform: translateX(4px);
+        }
+
+        .footer-links a i {
+            font-size: 10px;
+            color: #5fe33d;
+            opacity: .6;
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 20px;
+            color: #909090;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-contact li i {
+            color: #5fe33d;
+            font-size: 16px;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            padding: 28px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .footer-bottom p {
+            color: #606060;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-bottom-links a {
+            color: #606060;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #5fe33d;
+        }
+
+        /* ================= BACK TO TOP ================= */
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: .4s;
+            box-shadow: 0 8px 25px rgba(41, 98, 255, .35);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: #5fe33d;
+            color: #020515;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(95, 227, 61, .35);
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:1199px) {
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .tab-intro-text h3 {
+                font-size: 30px;
+            }
+        }
+
+        @media(max-width:991px) {
+            .hero h1 {
+                font-size: 44px;
+            }
+
+            .section-title h2,
+            .cta h2 {
+                font-size: 38px;
+            }
+
+            .tab-intro {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .tab-intro-visual {
+                width: 220px;
+                height: 220px;
+            }
+
+            .tab-intro-visual i {
+                font-size: 70px;
+            }
+
+            .footer-main>.row>div {
+                margin-bottom: 40px;
+            }
+        }
+
+        @media(max-width:767px) {
+            .hero {
+                padding: 100px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .btn-primary-cyber,
+            .btn-outline-cyber {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+
+            .tab-btn {
+                padding: 16px 28px;
+                font-size: 15px;
+            }
+
+            .capability-row {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                padding: 30px;
+            }
+        }
+
+        @media(max-width:576px) {
+            .hero {
+                padding: 80px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .feature-card,
+            .dark-feature-card {
+                padding: 28px;
+            }
+
+            .section-title h2,
+            .cta h2 {
+                font-size: 28px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta {
+                padding: 50px 24px;
+            }
+
+            .stat-item h3 {
+                font-size: 30px;
+            }
+
+            .tab-btn {
+                padding: 14px 22px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- ================= TOP BAR ================= -->
+
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-inner">
+                <div class="top-bar-left">
+                    <a href="mailto:info@cyberguard.com"><i class="fa-solid fa-envelope"></i> info@cyberguard.com</a>
+                    <a href="tel:+18005550199"><i class="fa-solid fa-phone"></i> +1 (800) 555-0199</a>
+                </div>
+                <div class="top-bar-right">
+                    <a href="#"><i class="fa-solid fa-clock"></i> Mon – Fri: 9AM – 6PM</a>
+                    <a href="#"><i class="fa-solid fa-location-dot"></i> New York, USA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= MAIN NAV ================= -->
+
+    <header class="main-nav" id="mainNav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="logo">
+                    <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="logo-text">Cyber<span>Guard</span></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#solutions" class="active">Solutions</a></li>
+                    <li><a href="#workflow">Workflow</a></li>
+                    <li><a href="#compare">Compare</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="#contact" class="nav-cta desktop-only">Get Protected</a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="container">
+                <a href="#">Home</a>
+                <a href="#solutions">Solutions</a>
+                <a href="#workflow">Workflow</a>
+                <a href="#compare">Compare</a>
+                <a href="#contact">Contact</a>
+                <a href="#contact" class="nav-cta">Get Protected</a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-9">
+                    <div class="hero-label">
+                        <span class="dot"></span>
+                        ENTERPRISE BACKUP SOLUTIONS
+                    </div>
+                    <h1>
+                        Protect Your Data With<br>
+                        <span>Advanced Backup</span> Solutions
+                    </h1>
+                    <p>
+                        Deploy enterprise-grade backup and disaster recovery with Acronis
+                        and Veeam — secure your physical servers, virtual machines, cloud
+                        workloads, and SaaS applications against data loss and ransomware.
+                    </p>
+                    <div class="hero-btns">
+                        <a href="#solutions" class="btn-primary-cyber">
+                            Explore Solutions <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="btn-outline-cyber">
+                            <i class="fa-solid fa-phone"></i> Free Assessment
+                        </a>
+                    </div>
+                    <div class="hero-badges">
+                        <div class="hero-badge">
+                            <i class="fa-solid fa-database"></i>
+                            Acronis Backup
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fa-solid fa-cubes"></i>
+                            Veeam Backup
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            Cloud DR
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fa-solid fa-virus-slash"></i>
+                            Ransomware Shield
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= STATS BAR ================= -->
+
+    <section class="stats-bar">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-database"></i>
+                        <h3>50PB<span>+</span></h3>
+                        <p>Data Protected</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-server"></i>
+                        <h3>8K<span>+</span></h3>
+                        <p>Servers Backed Up</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <h3>15K<span>+</span></h3>
+                        <p>Successful Recoveries</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <h3>99.99<span>%</span></h3>
+                        <p>Backup Success Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= TABS SECTION ================= -->
+
+    <section class="section-padding tabs-section" id="solutions">
+
+        <div class="container">
+
+            <div class="section-title">
+                <span class="label">Our Solutions</span>
+                <h2>Enterprise <span>Backup Solutions</span></h2>
+                <p>
+                    Industry-leading backup platforms deployed, configured, and managed
+                    by our certified engineers — ensuring your data is always protected
+                    and instantly recoverable.
+                </p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="tab-nav-wrap">
+
+                <button class="tab-btn active" data-tab="acronis">
+                    <i class="fa-solid fa-database"></i>
+                    Acronis Backup
+                </button>
+
+                <button class="tab-btn" data-tab="veeam">
+                    <i class="fa-solid fa-cubes"></i>
+                    Veeam Backup
+                </button>
+
+            </div>
+
+
+            <!-- ========== TAB 1: ACRONIS ========== -->
+
+            <div class="tab-content-area active" id="tab-acronis">
+
+                <div class="tab-intro">
+                    <div class="tab-intro-text">
+                        <span class="label">Acronis Cyber Protect</span>
+                        <h3>Unified <span>Acronis Backup</span> & Cyber Protection</h3>
+                        <p>
+                            Go beyond traditional backup with Acronis Cyber Protect — combining
+                            backup, disaster recovery, anti-malware, and security in a single
+                            integrated platform. Protect physical, virtual, cloud, and mobile
+                            workloads with AI-powered ransomware defense.
+                        </p>
+                    </div>
+                    <div class="tab-intro-visual brand-acronis">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-5">
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-shield-virus"></i></div>
+                            <h4>AI-Powered Ransomware Protection</h4>
+                            <p>Acronis uses machine learning to detect and block ransomware attacks in real-time —
+                                stopping encryption before it spreads and automatically rolling back affected files.</p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> Real-Time Ransomware Detection</li>
+                                <li><i class="fa-solid fa-check"></i> Automatic File Rollback</li>
+                                <li><i class="fa-solid fa-check"></i> Behavioral Analysis Engine</li>
+                                <li><i class="fa-solid fa-check"></i> Crypto-Blocker Technology</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                            <h4>Universal Backup & Cloud Storage</h4>
+                            <p>Back up any workload to any location — on-premises, Acronis Cloud, or any public cloud.
+                                Supports full, incremental, and differential backup with deduplication and compression.
+                            </p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> Physical & Virtual Machines</li>
+                                <li><i class="fa-solid fa-check"></i> Cloud & Hybrid Deployments</li>
+                                <li><i class="fa-solid fa-check"></i> Global Deduplication</li>
+                                <li><i class="fa-solid fa-check"></i> AES-256 Encryption</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-rotate-left"></i></div>
+                            <h4>Bare-Metal Recovery</h4>
+                            <p>Restore entire systems to dissimilar hardware or virtual environments with bootable media
+                                and universal restore capabilities for fast disaster recovery.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                            <h4>Mobile & Endpoint Backup</h4>
+                            <p>Protect iOS and Android devices — back up contacts, photos, messages, and app data to
+                                Acronis Cloud with remote wipe and device tracking capabilities.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                            <h4>SaaS Backup (M365 & G-Workspace)</h4>
+                            <p>Back up Microsoft 365 and Google Workspace data — emails, drives, contacts, and calendars
+                                — with granular restore and point-in-time recovery.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-people-group"></i></div>
+                            <h4>Centralized Management</h4>
+                            <p>Manage all backup policies, security settings, and recovery operations from a single
+                                web-based console with role-based access and multi-tenant support.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+                            <h4>Disaster Recovery Orchestrator</h4>
+                            <p>Automated DR runbooks with failover testing, RTO/RPO monitoring, and one-click site
+                                recovery for business continuity planning and compliance.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-file-shield"></i></div>
+                            <h4>Anti-Malware & URL Filtering</h4>
+                            <p>Integrated next-gen antivirus, web filtering, and patch management — protect endpoints
+                                from malware, phishing, and vulnerabilities alongside backup operations.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========== TAB 2: VEEAM ========== -->
+
+            <div class="tab-content-area" id="tab-veeam">
+
+                <div class="tab-intro">
+                    <div class="tab-intro-text">
+                        <span class="label">Veeam Availability Suite</span>
+                        <h3>Enterprise <span>Veeam Backup</span> & Replication</h3>
+                        <p>
+                            Achieve ultimate data availability with Veeam — the industry standard
+                            for VM backup, cloud-native protection, and instant recovery.
+                            From on-premises vSphere and Hyper-V to AWS, Azure, and
+                            Kubernetes workloads.
+                        </p>
+                    </div>
+                    <div class="tab-intro-visual brand-veeam">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-5">
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-bolt"></i></div>
+                            <h4>Instant VM Recovery</h4>
+                            <p>Recover an entire VM in minutes — not hours. Veeam's Instant VM Recovery starts the VM
+                                directly from the backup file while restoring in the background for zero-downtime
+                                recovery.</p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> Recovery in Under 15 Minutes</li>
+                                <li><i class="fa-solid fa-check"></i> Run Directly from Backup</li>
+                                <li><i class="fa-solid fa-check"></i> Background Full Restore</li>
+                                <li><i class="fa-solid fa-check"></i> Zero RPO for Critical VMs</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-arrows-left-right"></i></div>
+                            <h4>Replication & Failover</h4>
+                            <p>Create replica VMs with near-synchronous replication for RPOs as low as seconds.
+                                Automated failover with planned and unplanned switchover for seamless DR.</p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> Near-Sync Replication</li>
+                                <li><i class="fa-solid fa-check"></i> Automated Failover & Failback</li>
+                                <li><i class="fa-solid fa-check"></i> DR Testing Without Impact</li>
+                                <li><i class="fa-solid fa-check"></i> Multi-Site Replication Chains</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                            <h4>VM Backup (vSphere & Hyper-V)</h4>
+                            <p>Image-level backup for VMware vSphere and Microsoft Hyper-V with Changed Block Tracking
+                                (CBT), synthetic fulls, and forever-forward incremental backups.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-brands fa-aws"></i></div>
+                            <h4>Cloud-Native Protection</h4>
+                            <p>Back up and restore AWS EC2, RDS, EFS, and Azure VMs, blobs, SQL — with native snapshots,
+                                incremental backups, and cross-region DR replication.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-hard-drive"></i></div>
+                            <h4>NAS & Unstructured Data</h4>
+                            <p>Protect file servers and NAS shares with policy-based backup, fast recovery of individual
+                                files, and scale-out backup repository for petabyte-scale storage.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                            <h4>Explorers & Granular Recovery</h4>
+                            <p>Restore individual files, folders, application items (Exchange mails, SharePoint docs,
+                                SQL tables, AD objects) directly from any backup without full VM restore.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                            <h4>Veeam Cloud Connect</h4>
+                            <p>Send encrypted backups to our Veeam Cloud Connect infrastructure — off-site DR without
+                                building a secondary site. Fast seed, WAN acceleration, and tenant isolation.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-chart-column"></i></div>
+                            <h4>Monitoring & Analytics</h4>
+                            <p>Veeam ONE monitoring with real-time dashboards, capacity planning, backup success
+                                tracking, SLA compliance reporting, and proactive alerting on issues before they impact.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Capability Rows -->
+                <div class="capability-row mt-5">
+                    <div class="cap-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <h4>Immutable Backups & Ransomware Protection</h4>
+                        <p>Veeam's immutable backup repositories ensure that once data is written, it cannot be
+                            modified, encrypted, or deleted — even by admin accounts. Combined with SureBackup automated
+                            verification, every backup is tested for malware contamination before being committed,
+                            providing defense-in-depth against ransomware.</p>
+                    </div>
+                </div>
+
+                <div class="capability-row">
+                    <div class="cap-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                    <div>
+                        <h4>Kubernetes & Container Backup</h4>
+                        <p>Back up and restore Kubernetes clusters — namespaces, deployments, ConfigMaps, secrets, and
+                            persistent volumes — with Veeam Kasten. Protect containerized applications running on any
+                            cloud or on-premises K8s distribution with application-aware backup and RBAC integration.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WORKFLOW SECTION ================= -->
+
+    <section class="section-padding" id="workflow">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Our Process</span>
+                <h2>How We <span>Deploy</span> Your Backup</h2>
+                <p>
+                    A proven 5-step methodology to design, deploy, and validate your
+                    backup infrastructure — from assessment to ongoing management.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg col-md-4 col-6">
+                    <div class="workflow-step">
+                        <div class="step-num">1</div>
+                        <div class="step-connector"></div>
+                        <h4>Assessment</h4>
+                        <p>Analyze your infrastructure, RPO/RTO requirements, data volumes, and existing backup gaps.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg col-md-4 col-6">
+                    <div class="workflow-step">
+                        <div class="step-num">2</div>
+                        <div class="step-connector"></div>
+                        <h4>Design</h4>
+                        <p>Architecture the backup solution — storage, network, retention policies, and DR strategy.</p>
+                    </div>
+                </div>
+                <div class="col-lg col-md-4 col-6">
+                    <div class="workflow-step">
+                        <div class="step-num">3</div>
+                        <div class="step-connector"></div>
+                        <h4>Deploy</h4>
+                        <p>Install, configure, and integrate the backup platform into your environment.</p>
+                    </div>
+                </div>
+                <div class="col-lg col-md-4 col-6">
+                    <div class="workflow-step">
+                        <div class="step-num">4</div>
+                        <div class="step-connector"></div>
+                        <h4>Validate</h4>
+                        <p>Run full backup cycles, perform test restores, and verify RPO/RPO compliance.</p>
+                    </div>
+                </div>
+                <div class="col-lg col-md-4 col-6">
+                    <div class="workflow-step">
+                        <div class="step-num">5</div>
+                        <h4>Manage</h4>
+                        <p>24/7 monitoring, proactive maintenance, and continuous optimization of backup operations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= COMPARISON TABLE ================= -->
+
+    <section class="section-padding compare-section" id="compare">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Quick Comparison</span>
+                <h2>Acronis vs <span>Veeam</span></h2>
+                <p>Key capabilities compared to help you choose the right backup platform.</p>
+            </div>
+
+            <div class="compare-table-wrap">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Capability</th>
+                            <th><i class="fa-solid fa-database"></i> Acronis Cyber Protect</th>
+                            <th><i class="fa-solid fa-cubes"></i> Veeam Availability Suite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>VM Backup (vSphere/Hyper-V)</td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Physical Server Backup</td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-minus check-gray"></i> Agent-Based Only</td>
+                        </tr>
+                        <tr>
+                            <td>Cloud-Native (AWS/Azure)</td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                        </tr>
+                        <tr>
+                            <td>SaaS Backup (M365/Google)</td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Kubernetes Backup</td>
+                            <td><i class="fa-solid fa-xmark check-gray"></i></td>
+                            <td><i class="fa-solid fa-check check-green"></i> Veeam Kasten</td>
+                        </tr>
+                        <tr>
+                            <td>Built-in Anti-Malware</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Integrated</td>
+                            <td><i class="fa-solid fa-xmark check-gray"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Ransomware Protection</td>
+                            <td><i class="fa-solid fa-check check-green"></i> AI-Based Active</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Immutable Repo</td>
+                        </tr>
+                        <tr>
+                            <td>Instant VM Recovery</td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-check check-green"></i> Industry Leading</td>
+                        </tr>
+                        <tr>
+                            <td>Replication & Failover</td>
+                            <td><i class="fa-solid fa-minus check-gray"></i> Basic</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Advanced</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile Device Backup</td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-xmark check-gray"></i></td>
+                        </tr>
+                        <tr>
+                            <td>NAS / File Server Backup</td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-check check-green"></i> Scale-Out Repo</td>
+                        </tr>
+                        <tr>
+                            <td>Monitoring & Analytics</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Built-In</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Veeam ONE</td>
+                        </tr>
+                        <tr>
+                            <td>Best For</td>
+                            <td style="font-weight:600;color:#2962ff;">All-in-One Cyber Protection</td>
+                            <td style="font-weight:600;color:#2962ff;">Virtual & Cloud Workloads</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= DARK SECTION — COMMON SERVICES ================= -->
+
+    <section class="section-padding dark-section">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Included With Every Solution</span>
+                <h2>Our <span>Managed Backup Services</span></h2>
+                <p>
+                    Every backup deployment includes these managed services — so your
+                    data protection runs on autopilot.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-gauge-high"></i></div>
+                        <h4>24/7 Backup Monitoring</h4>
+                        <p>Real-time monitoring of every backup job — success, failure, warnings — with instant alerting
+                            and SLA tracking dashboards.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-vial"></i></div>
+                        <h4>Automated Restore Testing</h4>
+                        <p>Scheduled automated recovery tests to verify backup integrity — every backup is validated
+                            before it counts as "protected."</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-chart-line"></i></div>
+                        <h4>Capacity Planning</h4>
+                        <p>Track storage growth trends, forecast capacity needs, and optimize retention policies to
+                            balance cost and protection level.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-file-contract"></i></div>
+                        <h4>Compliance Reporting</h4>
+                        <p>Audit-ready reports for HIPAA, GDPR, SOC 2, PCI-DSS — backup success rates, retention
+                            compliance, and DR test results.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-helmet-safety"></i></div>
+                        <h4>DR Drill Facilitation</h4>
+                        <p>Quarterly disaster recovery drills with documented procedures, execution support, and
+                            post-drill improvement recommendations.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-wrench"></i></div>
+                        <h4>Patch & Upgrade Management</h4>
+                        <p>Keep your backup platform updated — patch management, version upgrades, and compatibility
+                            testing handled by our team.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= BENEFITS ================= -->
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Why Choose Us</span>
+                <h2>Benefits Of <span>Our Backup Services</span></h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-certificate"></i>
+                        <h4>Certified Engineers</h4>
+                        <p>Acronis and Veeam certified engineers with real-world experience protecting enterprise
+                            environments.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h4>RPO Near Zero</h4>
+                        <p>Achieve recovery point objectives of minutes — not hours — with optimized backup schedules
+                            and replication.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-virus-slash"></i>
+                        <h4>Ransomware Proof</h4>
+                        <p>Immutable backups, air-gapped copies, and automated verification ensure data survives any
+                            ransomware attack.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-handshake"></i>
+                        <h4>Vendor Neutral</h4>
+                        <p>We recommend the best platform for your environment — not tied to any vendor, focused on your
+                            business needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="pb-5" id="contact">
+        <div class="container">
+            <div class="cta">
+                <h2>Don't Wait For Data Loss</h2>
+                <p>
+                    Get a free backup infrastructure assessment — we'll analyze your
+                    environment, identify gaps, and recommend the right Acronis or
+                    Veeam solution with accurate pricing.
+                </p>
+                <a href="#" class="btn-primary-cyber">
+                    Get Free Assessment <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-brand">
+                            <a href="#" class="logo">
+                                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                <div class="logo-text">Cyber<span>Guard</span></div>
+                            </a>
+                            <p>
+                                Enterprise backup and disaster recovery solutions — protecting
+                                critical business data with Acronis and Veeam for organizations
+                                worldwide.
+                            </p>
+                        </div>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6">
+                        <h4 class="footer-heading">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+                            <li><a href="#solutions"><i class="fa-solid fa-chevron-right"></i> Solutions</a></li>
+                            <li><a href="#workflow"><i class="fa-solid fa-chevron-right"></i> Workflow</a></li>
+                            <li><a href="#compare"><i class="fa-solid fa-chevron-right"></i> Compare</a></li>
+                            <li><a href="#contact"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="footer-heading">Backup Services</h4>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Acronis Cyber Protect</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Veeam Backup & Replication</a>
+                            </li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Cloud DR</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> SaaS Backup</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Disaster Recovery Planning</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="footer-heading">Contact Us</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>123 Cyber Street, Tech District,<br>New York, NY 10001, USA</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>info@cyberguard.com<br>support@cyberguard.com</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-phone"></i>
+                                <span>+1 (800) 555-0199<br>+1 (212) 555-0147</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CyberGuard. All Rights Reserved.</p>
+                <ul class="footer-bottom-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ================= BACK TO TOP ================= -->
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+
+        /* ===== Sticky Header ===== */
+        const mainNav = document.getElementById('mainNav');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            mainNav.classList.toggle('scrolled', window.scrollY > 50);
+            backToTop.classList.toggle('visible', window.scrollY > 600);
+        });
+
+        /* ===== Back to Top ===== */
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* ===== Mobile Menu ===== */
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const toggleIcon = mobileToggle.querySelector('i');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            toggleIcon.classList.toggle('fa-bars');
+            toggleIcon.classList.toggle('fa-xmark');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                toggleIcon.classList.add('fa-bars');
+                toggleIcon.classList.remove('fa-xmark');
+            });
+        });
+
+        /* ===== Smooth Scroll ===== */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const id = this.getAttribute('href');
+                if (id === '#') return;
+                const target = document.querySelector(id);
+                if (target) {
+                    e.preventDefault();
+                    const offset = mainNav.offsetHeight;
+                    window.scrollTo({
+                        top: target.getBoundingClientRect().top + window.scrollY - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        /* ===== TAB SWITCHING ===== */
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabAreas = document.querySelectorAll('.tab-content-area');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabAreas.forEach(a => a.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById('tab-' + tabId).classList.add('active');
+            });
+        });
+
+
+    </script>
+
+</body>
+
+</html>

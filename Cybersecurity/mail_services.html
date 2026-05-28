@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mail Services — CyberGuard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            overflow-x: hidden;
+            color: #111;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ================= TOP BAR ================= */
+
+        .top-bar {
+            background: #020515;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .top-bar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .top-bar a {
+            color: #a0a0a0;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .top-bar a:hover {
+            color: #5fe33d;
+        }
+
+        .top-bar-left,
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .top-bar i {
+            color: #5fe33d;
+            margin-right: 6px;
+            font-size: 12px;
+        }
+
+        /* ================= MAIN NAV ================= */
+
+        .main-nav {
+            background: #040823;
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+            transition: .4s;
+        }
+
+        .main-nav.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, .5);
+            background: rgba(4, 8, 35, .97);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 22px;
+            box-shadow: 0 6px 20px rgba(41, 98, 255, .35);
+        }
+
+        .logo-text {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: #5fe33d;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #c8c8c8;
+            font-size: 15px;
+            font-weight: 500;
+            transition: .3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #5fe33d;
+            bottom: -6px;
+            left: 0;
+            transition: .3s;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: #2962ff;
+            color: #fff !important;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: .4s;
+            display: inline-block;
+            box-shadow: 0 6px 20px rgba(41, 98, 255, .3);
+        }
+
+        .nav-cta:hover {
+            background: #4c7dff;
+            transform: translateY(-3px);
+            color: #fff !important;
+            box-shadow: 0 10px 30px rgba(41, 98, 255, .45);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: #040823;
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            padding: 20px 0;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: #c8c8c8;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            transition: .3s;
+        }
+
+        .mobile-menu a:hover {
+            color: #5fe33d;
+        }
+
+        .mobile-menu .nav-cta {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            border-bottom: none;
+        }
+
+        @media(max-width:991px) {
+
+            .nav-links,
+            .nav-cta.desktop-only {
+                display: none !important;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+        }
+
+        @media(max-width:576px) {
+            .top-bar {
+                display: none;
+            }
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background:
+                linear-gradient(to right, rgba(0, 0, 0, .95), rgba(0, 0, 0, .85)),
+                url('https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: #00ff95;
+            filter: blur(200px);
+            opacity: .07;
+            right: -150px;
+            top: -150px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #2962ff;
+            filter: blur(180px);
+            opacity: .06;
+            left: -100px;
+            bottom: -100px;
+        }
+
+        .hero-label {
+            color: #5fe33d;
+            font-weight: 600;
+            letter-spacing: 3px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-label .dot {
+            width: 8px;
+            height: 8px;
+            background: #5fe33d;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.7);
+            }
+        }
+
+        .hero h1 {
+            color: #fff;
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #5fe33d;
+        }
+
+        .hero p {
+            color: #d6d6d6;
+            line-height: 1.9;
+            max-width: 650px;
+            font-size: 17px;
+            margin-bottom: 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-cyber {
+            background: #2962ff;
+            color: #fff;
+            padding: 16px 38px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: .4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary-cyber:hover {
+            background: #4c7dff;
+            transform: translateY(-4px);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(41, 98, 255, .4);
+        }
+
+        .btn-outline-cyber {
+            border: 2px solid rgba(255, 255, 255, .2);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: .4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-outline-cyber:hover {
+            border-color: #5fe33d;
+            color: #5fe33d;
+            transform: translateY(-4px);
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 16px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 14px;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-badge i {
+            color: #5fe33d;
+            font-size: 20px;
+        }
+
+        /* ================= STATS BAR ================= */
+
+        .stats-bar {
+            background: #f8f9fc;
+            padding: 50px 0;
+            border-bottom: 1px solid #ececec;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .stat-item i {
+            font-size: 32px;
+            color: #2962ff;
+            margin-bottom: 16px;
+        }
+
+        .stat-item h3 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #111;
+        }
+
+        .stat-item h3 span {
+            color: #5fe33d;
+        }
+
+        .stat-item p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ================= SECTION COMMON ================= */
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 65px;
+        }
+
+        .section-title .label {
+            color: #2962ff;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title h2 {
+            font-size: 46px;
+            font-weight: 800;
+            color: #111;
+        }
+
+        .section-title h2 span {
+            color: #5fe33d;
+        }
+
+        .section-title p {
+            color: #666;
+            margin-top: 15px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ================= TAB NAVIGATION ================= */
+
+        .tabs-section {
+            background: #f8f9fc;
+        }
+
+        .tab-nav-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: #fff;
+            border: 2px solid #ececec;
+            border-radius: 16px;
+            padding: 18px 32px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: .4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .tab-btn i {
+            font-size: 20px;
+            color: #2962ff;
+            transition: .3s;
+        }
+
+        .tab-btn:hover {
+            border-color: #2962ff;
+            color: #2962ff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(41, 98, 255, .12);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-color: #2962ff;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(41, 98, 255, .35);
+            transform: translateY(-3px);
+        }
+
+        .tab-btn.active i {
+            color: #5fe33d;
+        }
+
+        /* ================= TAB CONTENT ================= */
+
+        .tab-content-area {
+            display: none;
+            animation: tabFadeIn .5s ease;
+        }
+
+        .tab-content-area.active {
+            display: block;
+        }
+
+        @keyframes tabFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tab Intro Row */
+        .tab-intro {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .tab-intro-text {
+            flex: 1;
+        }
+
+        .tab-intro-text .label {
+            color: #2962ff;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .tab-intro-text h3 {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 18px;
+            color: #111;
+        }
+
+        .tab-intro-text h3 span {
+            color: #5fe33d;
+        }
+
+        .tab-intro-text p {
+            color: #666;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        .tab-intro-visual {
+            flex-shrink: 0;
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #040823, #08164b);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-intro-visual::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #5fe33d;
+            filter: blur(100px);
+            opacity: .12;
+        }
+
+        .tab-intro-visual i {
+            font-size: 90px;
+            color: #5fe33d;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Brand color for visual */
+        .tab-intro-visual.brand-microsoft::before {
+            background: #00a4ef;
+        }
+
+        .tab-intro-visual.brand-microsoft i {
+            color: #00a4ef;
+        }
+
+        .tab-intro-visual.brand-google::before {
+            background: #34a853;
+        }
+
+        .tab-intro-visual.brand-google i {
+            color: #34a853;
+        }
+
+        .tab-intro-visual.brand-zoho::before {
+            background: #d4382c;
+        }
+
+        .tab-intro-visual.brand-zoho i {
+            color: #d4382c;
+        }
+
+        .tab-intro-visual.brand-zimbra::before {
+            background: #5b2d8e;
+        }
+
+        .tab-intro-visual.brand-zimbra i {
+            color: #5b2d8e;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 36px;
+            height: 100%;
+            transition: .4s;
+            border: 1px solid #ececec;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #5fe33d;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #5fe33d;
+            filter: blur(100px);
+            opacity: .06;
+            top: -80px;
+            right: -80px;
+        }
+
+        .feature-card .fc-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(41, 98, 255, .2);
+        }
+
+        .feature-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #111;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* Dark Feature Card */
+        .dark-feature-card {
+            background: #0b1130;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            padding: 36px;
+            height: 100%;
+            transition: .4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #5fe33d;
+        }
+
+        .dark-feature-card::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #5fe33d;
+            filter: blur(100px);
+            opacity: .06;
+            bottom: -80px;
+            right: -80px;
+        }
+
+        .dark-feature-card .fc-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(41, 98, 255, .2);
+        }
+
+        .dark-feature-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #fff;
+        }
+
+        .dark-feature-card p {
+            color: #c8c8c8;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .dark-feature-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dark-feature-card ul li {
+            color: #d2d2d2;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .dark-feature-card ul li i {
+            color: #5fe33d;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Capability Row */
+        .capability-row {
+            background: #0b1130;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            padding: 40px 45px;
+            margin-bottom: 20px;
+            transition: .4s;
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .capability-row:hover {
+            border-color: #5fe33d;
+            transform: translateX(6px);
+        }
+
+        .capability-row .cap-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 22px;
+            flex-shrink: 0;
+            box-shadow: 0 6px 18px rgba(41, 98, 255, .25);
+        }
+
+        .capability-row h4 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .capability-row p {
+            color: #c8c8c8;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* Brand tag */
+        .brand-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .brand-tag.microsoft {
+            background: rgba(0, 164, 239, .1);
+            color: #00a4ef;
+        }
+
+        .brand-tag.google {
+            background: rgba(52, 168, 83, .1);
+            color: #34a853;
+        }
+
+        .brand-tag.zoho {
+            background: rgba(212, 56, 44, .1);
+            color: #d4382c;
+        }
+
+        .brand-tag.zimbra {
+            background: rgba(91, 45, 142, .1);
+            color: #5b2d8e;
+        }
+
+        /* ================= DARK SECTION ================= */
+
+        .dark-section {
+            background: #040823;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #00ff95;
+            filter: blur(200px);
+            opacity: .05;
+            left: -150px;
+            top: -100px;
+        }
+
+        .dark-section .section-title .label {
+            color: #5fe33d;
+        }
+
+        .dark-section .section-title h2 {
+            color: #fff;
+        }
+
+        .dark-section .section-title p {
+            color: #cfcfcf;
+        }
+
+        /* ================= COMPARISON TABLE ================= */
+
+        .compare-section {
+            background: #f8f9fc;
+        }
+
+        .compare-table-wrap {
+            overflow-x: auto;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .06);
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            min-width: 800px;
+        }
+
+        .compare-table thead th {
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            color: #fff;
+            padding: 20px 24px;
+            font-weight: 700;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .compare-table thead th:first-child {
+            text-align: left;
+            border-radius: 24px 0 0 0;
+        }
+
+        .compare-table thead th:last-child {
+            border-radius: 0 24px 0 0;
+        }
+
+        .compare-table tbody td {
+            padding: 18px 24px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+
+        .compare-table tbody td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .compare-table tbody tr:last-child td:first-child {
+            border-radius: 0 0 0 24px;
+        }
+
+        .compare-table tbody tr:last-child td:last-child {
+            border-radius: 0 0 24px 0;
+        }
+
+        .compare-table tbody tr:hover {
+            background: rgba(95, 227, 61, .03);
+        }
+
+        .compare-table .check-green {
+            color: #5fe33d;
+            font-size: 18px;
+        }
+
+        .compare-table .check-gray {
+            color: #ccc;
+            font-size: 18px;
+        }
+
+        /* ================= BENEFITS ================= */
+
+        .benefit-box {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            height: 100%;
+            transition: .4s;
+            border: 1px solid #ececec;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .05);
+        }
+
+        .benefit-box:hover {
+            transform: translateY(-10px);
+            border-color: #5fe33d;
+        }
+
+        .benefit-box i {
+            font-size: 45px;
+            color: #2962ff;
+            margin-bottom: 25px;
+        }
+
+        .benefit-box h4 {
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .benefit-box p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            background: linear-gradient(135deg, #040823, #08164b);
+            border-radius: 35px;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: #5fe33d;
+            filter: blur(150px);
+            opacity: .08;
+            top: -100px;
+            right: -100px;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #2962ff;
+            filter: blur(150px);
+            opacity: .06;
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .cta h2 {
+            color: #fff;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta p {
+            color: #d8d8d8;
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.9;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta .btn-primary-cyber {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .site-footer {
+            background: #020515;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #00ff95;
+            filter: blur(220px);
+            opacity: .04;
+            right: -200px;
+            bottom: -200px;
+        }
+
+        .footer-main {
+            padding: 80px 0 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .footer-brand p {
+            color: #909090;
+            line-height: 1.9;
+            margin-top: 18px;
+            font-size: 14px;
+            max-width: 340px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0a0a0;
+            font-size: 16px;
+            transition: .3s;
+        }
+
+        .footer-social a:hover {
+            background: #5fe33d;
+            border-color: #5fe33d;
+            color: #020515;
+            transform: translateY(-3px);
+        }
+
+        .footer-heading {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            position: relative;
+            padding-bottom: 14px;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: #5fe33d;
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+
+        .footer-links a {
+            color: #909090;
+            font-size: 14px;
+            transition: .3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #5fe33d;
+            transform: translateX(4px);
+        }
+
+        .footer-links a i {
+            font-size: 10px;
+            color: #5fe33d;
+            opacity: .6;
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 20px;
+            color: #909090;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-contact li i {
+            color: #5fe33d;
+            font-size: 16px;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            padding: 28px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .footer-bottom p {
+            color: #606060;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-bottom-links a {
+            color: #606060;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #5fe33d;
+        }
+
+        /* ================= BACK TO TOP ================= */
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: .4s;
+            box-shadow: 0 8px 25px rgba(41, 98, 255, .35);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: #5fe33d;
+            color: #020515;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(95, 227, 61, .35);
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:1199px) {
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .tab-intro-text h3 {
+                font-size: 30px;
+            }
+        }
+
+        @media(max-width:991px) {
+            .hero h1 {
+                font-size: 44px;
+            }
+
+            .section-title h2,
+            .cta h2 {
+                font-size: 38px;
+            }
+
+            .tab-intro {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .tab-intro-visual {
+                width: 220px;
+                height: 220px;
+            }
+
+            .tab-intro-visual i {
+                font-size: 70px;
+            }
+
+            .footer-main>.row>div {
+                margin-bottom: 40px;
+            }
+        }
+
+        @media(max-width:767px) {
+            .hero {
+                padding: 100px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .btn-primary-cyber,
+            .btn-outline-cyber {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+
+            .tab-btn {
+                padding: 14px 22px;
+                font-size: 14px;
+            }
+
+            .tab-btn span.tab-label-full {
+                display: none;
+            }
+
+            .tab-btn span.tab-label-short {
+                display: inline;
+            }
+
+            .capability-row {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                padding: 30px;
+            }
+        }
+
+        @media(min-width:768px) {
+            .tab-btn span.tab-label-short {
+                display: none;
+            }
+        }
+
+        @media(max-width:576px) {
+            .hero {
+                padding: 80px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .feature-card,
+            .dark-feature-card {
+                padding: 28px;
+            }
+
+            .section-title h2,
+            .cta h2 {
+                font-size: 28px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta {
+                padding: 50px 24px;
+            }
+
+            .stat-item h3 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- ================= TOP BAR ================= -->
+
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-inner">
+                <div class="top-bar-left">
+                    <a href="mailto:info@cyberguard.com"><i class="fa-solid fa-envelope"></i> info@cyberguard.com</a>
+                    <a href="tel:+18005550199"><i class="fa-solid fa-phone"></i> +1 (800) 555-0199</a>
+                </div>
+                <div class="top-bar-right">
+                    <a href="#"><i class="fa-solid fa-clock"></i> Mon – Fri: 9AM – 6PM</a>
+                    <a href="#"><i class="fa-solid fa-location-dot"></i> New York, USA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= MAIN NAV ================= -->
+
+    <header class="main-nav" id="mainNav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="logo">
+                    <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="logo-text">Cyber<span>Guard</span></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#services" class="active">Services</a></li>
+                    <li><a href="#compare">Compare</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="#contact" class="nav-cta desktop-only">Get Consultation</a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="container">
+                <a href="#">Home</a>
+                <a href="#services">Services</a>
+                <a href="#compare">Compare</a>
+                <a href="#benefits">Benefits</a>
+                <a href="#contact">Contact</a>
+                <a href="#contact" class="nav-cta">Get Consultation</a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-9">
+                    <div class="hero-label">
+                        <span class="dot"></span>
+                        ENTERPRISE MAIL SERVICES
+                    </div>
+                    <h1>
+                        Professional <span>Mail Services</span><br>
+                        For Modern Business
+                    </h1>
+                    <p>
+                        Deploy, manage, and secure enterprise email platforms including
+                        Microsoft 365, Google Workspace, ZOHO Mail, and Zimbra — with
+                        expert migration, administration, and 24/7 support.
+                    </p>
+                    <div class="hero-btns">
+                        <a href="#services" class="btn-primary-cyber">
+                            Explore Services <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="btn-outline-cyber">
+                            <i class="fa-solid fa-phone"></i> Schedule a Demo
+                        </a>
+                    </div>
+                    <div class="hero-badges">
+                        <div class="hero-badge">
+                            <i class="fa-brands fa-microsoft"></i>
+                            Microsoft 365
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fa-brands fa-google"></i>
+                            Google Workspace
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fa-solid fa-z"></i>
+                            ZOHO Mail
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fa-solid fa-envelope"></i>
+                            Zimbra
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= STATS BAR ================= -->
+
+    <section class="stats-bar">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                        <h3>25K<span>+</span></h3>
+                        <p>Mailboxes Managed</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <h3>800<span>+</span></h3>
+                        <p>Migrations Completed</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-building"></i>
+                        <h3>350<span>+</span></h3>
+                        <p>Enterprise Clients</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-headset"></i>
+                        <h3>24<span>/7</span></h3>
+                        <p>Admin Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= TABS SECTION ================= -->
+
+    <section class="section-padding tabs-section" id="services">
+
+        <div class="container">
+
+            <div class="section-title">
+                <span class="label">Our Mail Platforms</span>
+                <h2>Enterprise <span>Mail Services</span></h2>
+                <p>
+                    End-to-end mail platform management — from deployment and migration
+                    to administration, security, and ongoing support.
+                </p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="tab-nav-wrap">
+
+                <button class="tab-btn active" data-tab="m365">
+                    <i class="fa-brands fa-microsoft"></i>
+                    <span class="tab-label-full">Microsoft 365</span>
+                    <span class="tab-label-short">M365</span>
+                </button>
+
+                <button class="tab-btn" data-tab="gsuite">
+                    <i class="fa-brands fa-google"></i>
+                    <span class="tab-label-full">Google Workspace</span>
+                    <span class="tab-label-short">G-Suite</span>
+                </button>
+
+                <button class="tab-btn" data-tab="zoho">
+                    <i class="fa-solid fa-z"></i>
+                    <span class="tab-label-full">ZOHO Mail</span>
+                    <span class="tab-label-short">ZOHO</span>
+                </button>
+
+                <button class="tab-btn" data-tab="zimbra">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span class="tab-label-full">Zimbra</span>
+                    <span class="tab-label-short">Zimbra</span>
+                </button>
+
+            </div>
+
+
+            <!-- ========== TAB 1: MICROSOFT 365 ========== -->
+
+            <div class="tab-content-area active" id="tab-m365">
+
+                <div class="tab-intro">
+                    <div class="tab-intro-text">
+                        <span class="label">Microsoft 365</span>
+                        <h3>Complete <span>Microsoft 365</span> Management</h3>
+                        <p>
+                            Deploy and manage Microsoft 365 for your organization with expert
+                            administration — Exchange Online, Teams, SharePoint, OneDrive,
+                            and the full Microsoft ecosystem secured and optimized.
+                        </p>
+                    </div>
+                    <div class="tab-intro-visual brand-microsoft">
+                        <i class="fa-brands fa-microsoft"></i>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                            <h4>Exchange Online Management</h4>
+                            <p>Full Exchange Online administration — mailbox provisioning, distribution groups, mail
+                                flow rules, transport rules, and anti-spam/anti-malware configuration.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-users-rectangle"></i></div>
+                            <h4>Teams & Collaboration</h4>
+                            <p>Configure Microsoft Teams — channels, policies, calling plans, meeting settings, app
+                                management, and integration with Exchange, SharePoint, and OneDrive.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <h4>Security & Compliance</h4>
+                            <p>Configure Defender for 365, DLP policies, retention labels, eDiscovery, sensitivity
+                                labels, MFA, conditional access, and zero-trust security posture.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                            <h4>Migration Services</h4>
+                            <p>Seamless migration from on-premises Exchange, Google Workspace, ZOHO, or any legacy email
+                                system to Microsoft 365 with zero downtime and zero data loss.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-user-gear"></i></div>
+                            <h4>Identity & Access Management</h4>
+                            <p>Manage Azure AD identities, configure SSO, set up hybrid identity with on-premises AD,
+                                enforce password policies, and implement privileged access management.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-chart-line"></i></div>
+                            <h4>Licensing & Optimization</h4>
+                            <p>Optimize your Microsoft 365 licensing — right-size plans, eliminate waste, manage E3/E5
+                                allocations, and reduce costs with intelligent license analysis.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========== TAB 2: GOOGLE WORKSPACE ========== -->
+
+            <div class="tab-content-area" id="tab-gsuite">
+
+                <div class="tab-intro">
+                    <div class="tab-intro-text">
+                        <span class="label">Google Workspace</span>
+                        <h3>Expert <span>Google Workspace</span> Administration</h3>
+                        <p>
+                            Manage your entire Google Workspace environment — Gmail, Google Drive,
+                            Meet, Calendar, Chat, and Admin Console — with professional
+                            configuration, security hardening, and user support.
+                        </p>
+                    </div>
+                    <div class="tab-intro-visual brand-google">
+                        <i class="fa-brands fa-google"></i>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-5">
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-envelope-circle-check"></i></div>
+                            <h4>Gmail & Routing Configuration</h4>
+                            <p>Complete Gmail administration including routing rules, gateway setup, spam filtering,
+                                content compliance, email whitelisting/blacklisting, and delegation policies.</p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> Inbound/Outbound Routing Rules</li>
+                                <li><i class="fa-solid fa-check"></i> Advanced Spam & Phishing Protection</li>
+                                <li><i class="fa-solid fa-check"></i> Email Retention & Vault Setup</li>
+                                <li><i class="fa-solid fa-check"></i> DKIM, SPF, DMARC Configuration</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-lock"></i></div>
+                            <h4>Security & Access Control</h4>
+                            <p>Harden Google Workspace security with 2FA enforcement, SSO with SAML, OAuth app controls,
+                                context-aware access, session controls, and security center monitoring.</p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> Two-Factor Authentication (2FA)</li>
+                                <li><i class="fa-solid fa-check"></i> SSO & SAML Integration</li>
+                                <li><i class="fa-solid fa-check"></i> Context-Aware Access Policies</li>
+                                <li><i class="fa-solid fa-check"></i> Security Investigation Tool</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-video"></i></div>
+                            <h4>Google Meet & Chat</h4>
+                            <p>Configure Meet settings — recording policies, external participant rules, breakout rooms,
+                                live streaming, and Chat room management with retention policies.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-hard-drive"></i></div>
+                            <h4>Drive & Shared Drives</h4>
+                            <p>Manage Google Drive storage, shared drive structures, file sharing permissions, DLP rules
+                                for sensitive files, and migration from legacy file servers.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-right-left"></i></div>
+                            <h4>Migration to Workspace</h4>
+                            <p>Migrate from Microsoft 365, Exchange, ZOHO, Zimbra, or any IMAP system to Google
+                                Workspace with automated data migration and user onboarding.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========== TAB 3: ZOHO MAIL ========== -->
+
+            <div class="tab-content-area" id="tab-zoho">
+
+                <div class="tab-intro">
+                    <div class="tab-intro-text">
+                        <span class="label">ZOHO Mail</span>
+                        <h3>Complete <span>ZOHO Mail</span> & Workplace Management</h3>
+                        <p>
+                            Deploy and manage ZOHO Mail along with the entire ZOHO Workplace
+                            suite — Cliq, Docs, Sheet, Show, Connect, and WorkDrive — with
+                            professional admin setup and CRM integration.
+                        </p>
+                    </div>
+                    <div class="tab-intro-visual brand-zoho">
+                        <i class="fa-solid fa-z"></i>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-inbox"></i></div>
+                            <h4>ZOHO Mail Administration</h4>
+                            <p>Complete ZOHO Mail setup — domain verification, MX records, user/group provisioning,
+                                email policies, spam control, and mailbox quota management.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                            <h4>ZOHO Workplace Suite</h4>
+                            <p>Configure the full ZOHO Workplace ecosystem — Cliq for messaging, Docs & Sheet for
+                                productivity, Show for presentations, and WorkDrive for file storage.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-plug"></i></div>
+                            <h4>CRM & ZOHO One Integration</h4>
+                            <p>Integrate ZOHO Mail with ZOHO CRM for email context, automate workflows between Mail,
+                                CRM, Desk, and other ZOHO apps for unified business operations.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <h4>Email Security & DLP</h4>
+                            <p>Configure ZOHO's built-in email security — anti-spam, anti-virus, email encryption, DLP
+                                policies, attachment controls, and custom mail flow rules.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-code"></i></div>
+                            <h4>Custom Domain & Hosting</h4>
+                            <p>Set up custom domain email with ZOHO, configure DNS records, SSL/TLS encryption,
+                                SPF/DKIM/DMARC authentication, and manage hosting environments.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-right-left"></i></div>
+                            <h4>Migration to ZOHO</h4>
+                            <p>Migrate from Gmail, Microsoft 365, Zimbra, or any IMAP-enabled email system to ZOHO Mail
+                                with automated mailbox and folder mapping.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========== TAB 4: ZIMBRA ========== -->
+
+            <div class="tab-content-area" id="tab-zimbra">
+
+                <div class="tab-intro">
+                    <div class="tab-intro-text">
+                        <span class="label">Zimbra Collaboration</span>
+                        <h3>Enterprise <span>Zimbra</span> Mail & Collaboration</h3>
+                        <p>
+                            Deploy and manage Zimbra Collaboration Suite — email, calendar,
+                            contacts, tasks, and file sharing — with expert on-premises or
+                            cloud hosting, security hardening, and 24/7 administration.
+                        </p>
+                    </div>
+                    <div class="tab-intro-visual brand-zimbra">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-5">
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-server"></i></div>
+                            <h4>Deployment & Architecture</h4>
+                            <p>Plan and deploy Zimbra on-premises or in the cloud — multi-server architecture, LDAP
+                                integration, mailbox store configuration, and high-availability clustering.</p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> On-Premises & Cloud Deployment</li>
+                                <li><i class="fa-solid fa-check"></i> Multi-Server & HA Clustering</li>
+                                <li><i class="fa-solid fa-check"></i> LDAP / Active Directory Sync</li>
+                                <li><i class="fa-solid fa-check"></i> Backup & Disaster Recovery</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-gears"></i></div>
+                            <h4>Administration & Management</h4>
+                            <p>Full Zimbra administration — domain management, COS policies, distribution lists, mail
+                                quotas, spam/ham training, SSL certificates, and server performance tuning.</p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> Admin Console Management</li>
+                                <li><i class="fa-solid fa-check"></i> Class of Service (COS) Policies</li>
+                                <li><i class="fa-solid fa-check"></i> SpamAssassin & Amavis Config</li>
+                                <li><i class="fa-solid fa-check"></i> Performance Monitoring & Tuning</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Capability Rows -->
+                <div class="capability-row">
+                    <div class="cap-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <h4>Security Hardening</h4>
+                        <p>Implement TLS enforcement, S/MIME signing, password policies, failed login protection, IP
+                            blacklist/whitelist, attachment filtering, and outbound relay restrictions. Configure
+                            Zimbra's built-in antivirus (ClamAV) and antispam (SpamAssassin) for maximum email security.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="capability-row">
+                    <div class="cap-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                    <div>
+                        <h4>Collaboration Suite</h4>
+                        <p>Configure Zimbra Calendar with resource scheduling, shared calendars, and free/busy lookup.
+                            Set up Zimbra Contacts with GAL (Global Address List), contact sharing, and external sync.
+                            Enable Zimbra Drive for secure file sharing and document collaboration directly from the web
+                            client.</p>
+                    </div>
+                </div>
+
+                <div class="capability-row">
+                    <div class="cap-icon"><i class="fa-solid fa-right-left"></i></div>
+                    <div>
+                        <h4>Migration & Coexistence</h4>
+                        <p>Migrate from Microsoft Exchange, Google Workspace, ZOHO, or any IMAP system to Zimbra with
+                            mailbox migration tools. Set up hybrid coexistence between Zimbra and Exchange for phased
+                            migration scenarios with shared free/busy and directory sync.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= COMPARISON TABLE ================= -->
+
+    <section class="section-padding compare-section" id="compare">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Quick Comparison</span>
+                <h2>Platform <span>Comparison</span></h2>
+                <p>Key features compared across all four mail platforms to help you choose the right fit.</p>
+            </div>
+
+            <div class="compare-table-wrap">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th><i class="fa-brands fa-microsoft"></i> Microsoft 365</th>
+                            <th><i class="fa-brands fa-google"></i> Google Workspace</th>
+                            <th><i class="fa-solid fa-z"></i> ZOHO Mail</th>
+                            <th><i class="fa-solid fa-envelope"></i> Zimbra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Email Storage (Business)</td>
+                            <td>50 – 100 GB</td>
+                            <td>30 GB + Drive</td>
+                            <td>5 – 50 GB</td>
+                            <td>Unlimited (On-Prem)</td>
+                        </tr>
+                        <tr>
+                            <td>Video Conferencing</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Teams</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Meet</td>
+                            <td><i class="fa-solid fa-check check-green"></i> ZOHO Meeting</td>
+                            <td><i class="fa-solid fa-xmark check-gray"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Office Suite</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Full Desktop + Web</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Web Only</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Web Only</td>
+                            <td><i class="fa-solid fa-xmark check-gray"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Cloud Storage</td>
+                            <td><i class="fa-solid fa-check check-green"></i> OneDrive</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Google Drive</td>
+                            <td><i class="fa-solid fa-check check-green"></i> WorkDrive</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Zimbra Drive</td>
+                        </tr>
+                        <tr>
+                            <td>On-Premises Deploy</td>
+                            <td><i class="fa-solid fa-xmark check-gray"></i></td>
+                            <td><i class="fa-solid fa-xmark check-gray"></i></td>
+                            <td><i class="fa-solid fa-xmark check-gray"></i></td>
+                            <td><i class="fa-solid fa-check check-green"></i> Full Support</td>
+                        </tr>
+                        <tr>
+                            <td>CRM Integration</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Dynamics 365</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Third-Party</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Native ZOHO CRM</td>
+                            <td><i class="fa-solid fa-check check-green"></i> Third-Party</td>
+                        </tr>
+                        <tr>
+                            <td>Advanced DLP</td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-check check-green"></i></td>
+                            <td><i class="fa-solid fa-minus check-gray"></i> Basic</td>
+                        </tr>
+                        <tr>
+                            <td>Cost Efficiency</td>
+                            <td>$$</td>
+                            <td>$$</td>
+                            <td>$</td>
+                            <td>$$ (Self-Hosted)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= DARK SECTION — COMMON SERVICES ================= -->
+
+    <section class="section-padding dark-section">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Common Services</span>
+                <h2>What We Offer <span>Across All Platforms</span></h2>
+                <p>
+                    Regardless of which mail platform you choose, every service includes
+                    these essential capabilities.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-truck-fast"></i></div>
+                        <h4>Zero-Downtime Migration</h4>
+                        <p>Migrate from any platform with zero data loss, zero downtime, and full mailbox integrity
+                            validation before cutover.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-user-shield"></i></div>
+                        <h4>Security Hardening</h4>
+                        <p>Apply industry-best security configurations — MFA, SSO, DLP, encryption, spam filters, and
+                            access policies on day one.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-headset"></i></div>
+                        <h4>24/7 Admin Support</h4>
+                        <p>Dedicated mail administrators available around the clock for user management,
+                            troubleshooting, and emergency response.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-gauge-high"></i></div>
+                        <h4>Performance Monitoring</h4>
+                        <p>Continuous monitoring of mail flow, delivery rates, latency, storage utilization, and service
+                            health with proactive alerting.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-file-shield"></i></div>
+                        <h4>Backup & Recovery</h4>
+                        <p>Automated mailbox backups with point-in-time recovery, deleted item restoration, and disaster
+                            recovery planning.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h4>User Training</h4>
+                        <p>Comprehensive end-user and admin training sessions, documentation, video tutorials, and
+                            ongoing knowledge transfer programs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= BENEFITS ================= -->
+
+    <section class="section-padding" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Why Choose Us</span>
+                <h2>Benefits Of <span>Our Mail Services</span></h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-certificate"></i>
+                        <h4>Certified Experts</h4>
+                        <p>Microsoft, Google, ZOHO, and Zimbra certified administrators with 10+ years of enterprise
+                            experience.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h4>Fast Migration</h4>
+                        <p>Migrate thousands of mailboxes in days, not weeks — with automated tools and proven
+                            methodologies.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-coins"></i>
+                        <h4>Cost Optimization</h4>
+                        <p>Right-size licenses, eliminate unused accounts, and optimize storage to reduce your mail
+                            spend by up to 30%.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <h4>Platform Agnostic</h4>
+                        <p>Not tied to any vendor — we recommend the best platform for your business and manage it
+                            expertly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="pb-5" id="contact">
+        <div class="container">
+            <div class="cta">
+                <h2>Get Your Mail Platform Right</h2>
+                <p>
+                    Whether you're migrating, deploying, or optimizing — our mail
+                    experts will help you choose the right platform and manage it
+                    flawlessly. Schedule a free consultation today.
+                </p>
+                <a href="#" class="btn-primary-cyber">
+                    Schedule Free Consultation <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-brand">
+                            <a href="#" class="logo">
+                                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                <div class="logo-text">Cyber<span>Guard</span></div>
+                            </a>
+                            <p>
+                                Enterprise mail services and IT infrastructure management
+                                — deploying, securing, and optimizing business communication
+                                platforms worldwide.
+                            </p>
+                        </div>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6">
+                        <h4 class="footer-heading">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+                            <li><a href="#services"><i class="fa-solid fa-chevron-right"></i> Services</a></li>
+                            <li><a href="#compare"><i class="fa-solid fa-chevron-right"></i> Compare</a></li>
+                            <li><a href="#benefits"><i class="fa-solid fa-chevron-right"></i> Benefits</a></li>
+                            <li><a href="#contact"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="footer-heading">Mail Platforms</h4>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Microsoft 365</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Google Workspace</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> ZOHO Mail</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Zimbra</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Migration Services</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="footer-heading">Contact Us</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>123 Cyber Street, Tech District,<br>New York, NY 10001, USA</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>info@cyberguard.com<br>support@cyberguard.com</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-phone"></i>
+                                <span>+1 (800) 555-0199<br>+1 (212) 555-0147</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CyberGuard. All Rights Reserved.</p>
+                <ul class="footer-bottom-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ================= BACK TO TOP ================= -->
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+
+        /* ===== Sticky Header ===== */
+        const mainNav = document.getElementById('mainNav');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            mainNav.classList.toggle('scrolled', window.scrollY > 50);
+            backToTop.classList.toggle('visible', window.scrollY > 600);
+        });
+
+        /* ===== Back to Top ===== */
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* ===== Mobile Menu ===== */
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const toggleIcon = mobileToggle.querySelector('i');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            toggleIcon.classList.toggle('fa-bars');
+            toggleIcon.classList.toggle('fa-xmark');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                toggleIcon.classList.add('fa-bars');
+                toggleIcon.classList.remove('fa-xmark');
+            });
+        });
+
+        /* ===== Smooth Scroll ===== */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const id = this.getAttribute('href');
+                if (id === '#') return;
+                const target = document.querySelector(id);
+                if (target) {
+                    e.preventDefault();
+                    const offset = mainNav.offsetHeight;
+                    window.scrollTo({
+                        top: target.getBoundingClientRect().top + window.scrollY - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        /* ===== TAB SWITCHING ===== */
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabAreas = document.querySelectorAll('.tab-content-area');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabAreas.forEach(a => a.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById('tab-' + tabId).classList.add('active');
+            });
+        });
+
+
+    </script>
+
+</body>
+
+</html>

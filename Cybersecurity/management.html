@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IT Infrastructure Management — CyberGuard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            overflow-x: hidden;
+            color: #111;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ================= TOP BAR ================= */
+
+        .top-bar {
+            background: #020515;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .top-bar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .top-bar a {
+            color: #a0a0a0;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .top-bar a:hover {
+            color: #5fe33d;
+        }
+
+        .top-bar-left,
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .top-bar i {
+            color: #5fe33d;
+            margin-right: 6px;
+            font-size: 12px;
+        }
+
+        /* ================= MAIN NAV ================= */
+
+        .main-nav {
+            background: #040823;
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+            transition: .4s;
+        }
+
+        .main-nav.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, .5);
+            background: rgba(4, 8, 35, .97);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 22px;
+            box-shadow: 0 6px 20px rgba(41, 98, 255, .35);
+        }
+
+        .logo-text {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: #5fe33d;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #c8c8c8;
+            font-size: 15px;
+            font-weight: 500;
+            transition: .3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #5fe33d;
+            bottom: -6px;
+            left: 0;
+            transition: .3s;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: #2962ff;
+            color: #fff !important;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: .4s;
+            display: inline-block;
+            box-shadow: 0 6px 20px rgba(41, 98, 255, .3);
+        }
+
+        .nav-cta:hover {
+            background: #4c7dff;
+            transform: translateY(-3px);
+            color: #fff !important;
+            box-shadow: 0 10px 30px rgba(41, 98, 255, .45);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: #040823;
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            padding: 20px 0;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: #c8c8c8;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            transition: .3s;
+        }
+
+        .mobile-menu a:hover {
+            color: #5fe33d;
+        }
+
+        .mobile-menu .nav-cta {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            border-bottom: none;
+        }
+
+        @media(max-width:991px) {
+
+            .nav-links,
+            .nav-cta.desktop-only {
+                display: none !important;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+        }
+
+        @media(max-width:576px) {
+            .top-bar {
+                display: none;
+            }
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background:
+                linear-gradient(to right, rgba(0, 0, 0, .95), rgba(0, 0, 0, .85)),
+                url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: #00ff95;
+            filter: blur(200px);
+            opacity: .07;
+            right: -150px;
+            top: -150px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #2962ff;
+            filter: blur(180px);
+            opacity: .06;
+            left: -100px;
+            bottom: -100px;
+        }
+
+        .hero-label {
+            color: #5fe33d;
+            font-weight: 600;
+            letter-spacing: 3px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-label .dot {
+            width: 8px;
+            height: 8px;
+            background: #5fe33d;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.7);
+            }
+        }
+
+        .hero h1 {
+            color: #fff;
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #5fe33d;
+        }
+
+        .hero p {
+            color: #d6d6d6;
+            line-height: 1.9;
+            max-width: 650px;
+            font-size: 17px;
+            margin-bottom: 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-cyber {
+            background: #2962ff;
+            color: #fff;
+            padding: 16px 38px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: .4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary-cyber:hover {
+            background: #4c7dff;
+            transform: translateY(-4px);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(41, 98, 255, .4);
+        }
+
+        .btn-outline-cyber {
+            border: 2px solid rgba(255, 255, 255, .2);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: .4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-outline-cyber:hover {
+            border-color: #5fe33d;
+            color: #5fe33d;
+            transform: translateY(-4px);
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 16px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 14px;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-badge i {
+            color: #5fe33d;
+            font-size: 20px;
+        }
+
+        /* ================= STATS BAR ================= */
+
+        .stats-bar {
+            background: #f8f9fc;
+            padding: 50px 0;
+            border-bottom: 1px solid #ececec;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .stat-item i {
+            font-size: 32px;
+            color: #2962ff;
+            margin-bottom: 16px;
+        }
+
+        .stat-item h3 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #111;
+        }
+
+        .stat-item h3 span {
+            color: #5fe33d;
+        }
+
+        .stat-item p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ================= SECTION COMMON ================= */
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 65px;
+        }
+
+        .section-title .label {
+            color: #2962ff;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title h2 {
+            font-size: 46px;
+            font-weight: 800;
+            color: #111;
+        }
+
+        .section-title h2 span {
+            color: #5fe33d;
+        }
+
+        .section-title p {
+            color: #666;
+            margin-top: 15px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ================= TAB CONTENT ================= */
+
+        .tab-content-area {
+            display: block;
+            margin-bottom: 100px;
+        }
+
+        .tab-content-area.active {
+            display: block;
+        }
+
+        @keyframes tabFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tab Intro Row */
+        .tab-intro {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .tab-intro-text {
+            flex: 1;
+        }
+
+        .tab-intro-text .label {
+            color: #2962ff;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .tab-intro-text h3 {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 18px;
+            color: #111;
+        }
+
+        .tab-intro-text h3 span {
+            color: #5fe33d;
+        }
+
+        .tab-intro-text p {
+            color: #666;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        .tab-intro-visual {
+            flex-shrink: 0;
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #040823, #08164b);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-intro-visual::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #5fe33d;
+            filter: blur(100px);
+            opacity: .12;
+        }
+
+        .tab-intro-visual i {
+            font-size: 90px;
+            color: #5fe33d;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Feature Cards Grid */
+        .feature-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 36px;
+            height: 100%;
+            transition: .4s;
+            border: 1px solid #ececec;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #5fe33d;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #5fe33d;
+            filter: blur(100px);
+            opacity: .06;
+            top: -80px;
+            right: -80px;
+        }
+
+        .feature-card .fc-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(41, 98, 255, .2);
+        }
+
+        .feature-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #111;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* Dark Feature Card */
+        .dark-feature-card {
+            background: #0b1130;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            padding: 36px;
+            height: 100%;
+            transition: .4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #5fe33d;
+        }
+
+        .dark-feature-card::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #5fe33d;
+            filter: blur(100px);
+            opacity: .06;
+            bottom: -80px;
+            right: -80px;
+        }
+
+        .dark-feature-card .fc-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(41, 98, 255, .2);
+        }
+
+        .dark-feature-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #fff;
+        }
+
+        .dark-feature-card p {
+            color: #c8c8c8;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .dark-feature-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dark-feature-card ul li {
+            color: #d2d2d2;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .dark-feature-card ul li i {
+            color: #5fe33d;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Capability List (dark cards) */
+        .capability-row {
+            background: #0b1130;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            padding: 40px 45px;
+            margin-bottom: 20px;
+            transition: .4s;
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .capability-row:hover {
+            border-color: #5fe33d;
+            transform: translateX(6px);
+        }
+
+        .capability-row .cap-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 22px;
+            flex-shrink: 0;
+            box-shadow: 0 6px 18px rgba(41, 98, 255, .25);
+        }
+
+        .capability-row h4 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .capability-row p {
+            color: #c8c8c8;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* ================= DARK SECTION ================= */
+
+        .dark-section {
+            background: #040823;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #00ff95;
+            filter: blur(200px);
+            opacity: .05;
+            left: -150px;
+            top: -100px;
+        }
+
+        .dark-section .section-title .label {
+            color: #5fe33d;
+        }
+
+        .dark-section .section-title h2 {
+            color: #fff;
+        }
+
+        .dark-section .section-title p {
+            color: #cfcfcf;
+        }
+
+        /* ================= BENEFITS ================= */
+
+        .benefit-box {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            height: 100%;
+            transition: .4s;
+            border: 1px solid #ececec;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .05);
+        }
+
+        .benefit-box:hover {
+            transform: translateY(-10px);
+            border-color: #5fe33d;
+        }
+
+        .benefit-box i {
+            font-size: 45px;
+            color: #2962ff;
+            margin-bottom: 25px;
+        }
+
+        .benefit-box h4 {
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .benefit-box p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            background: linear-gradient(135deg, #040823, #08164b);
+            border-radius: 35px;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: #5fe33d;
+            filter: blur(150px);
+            opacity: .08;
+            top: -100px;
+            right: -100px;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #2962ff;
+            filter: blur(150px);
+            opacity: .06;
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .cta h2 {
+            color: #fff;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta p {
+            color: #d8d8d8;
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.9;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta .btn-primary-cyber {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .site-footer {
+            background: #020515;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #00ff95;
+            filter: blur(220px);
+            opacity: .04;
+            right: -200px;
+            bottom: -200px;
+        }
+
+        .footer-main {
+            padding: 80px 0 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .footer-brand p {
+            color: #909090;
+            line-height: 1.9;
+            margin-top: 18px;
+            font-size: 14px;
+            max-width: 340px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0a0a0;
+            font-size: 16px;
+            transition: .3s;
+        }
+
+        .footer-social a:hover {
+            background: #5fe33d;
+            border-color: #5fe33d;
+            color: #020515;
+            transform: translateY(-3px);
+        }
+
+        .footer-heading {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            position: relative;
+            padding-bottom: 14px;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: #5fe33d;
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+
+        .footer-links a {
+            color: #909090;
+            font-size: 14px;
+            transition: .3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #5fe33d;
+            transform: translateX(4px);
+        }
+
+        .footer-links a i {
+            font-size: 10px;
+            color: #5fe33d;
+            opacity: .6;
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 20px;
+            color: #909090;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-contact li i {
+            color: #5fe33d;
+            font-size: 16px;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            padding: 28px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .footer-bottom p {
+            color: #606060;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-bottom-links a {
+            color: #606060;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #5fe33d;
+        }
+
+        /* ================= BACK TO TOP ================= */
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2962ff, #0b1f66);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: .4s;
+            box-shadow: 0 8px 25px rgba(41, 98, 255, .35);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: #5fe33d;
+            color: #020515;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(95, 227, 61, .35);
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:1199px) {
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .tab-intro-text h3 {
+                font-size: 30px;
+            }
+        }
+
+        @media(max-width:991px) {
+            .hero h1 {
+                font-size: 44px;
+            }
+
+            .section-title h2,
+            .cta h2 {
+                font-size: 38px;
+            }
+
+            .tab-intro {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .tab-intro-visual {
+                width: 220px;
+                height: 220px;
+            }
+
+            .tab-intro-visual i {
+                font-size: 70px;
+            }
+
+            .footer-main>.row>div {
+                margin-bottom: 40px;
+            }
+        }
+
+        @media(max-width:767px) {
+            .hero {
+                padding: 100px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .btn-primary-cyber,
+            .btn-outline-cyber {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+
+            .tab-btn {
+                padding: 14px 22px;
+                font-size: 14px;
+            }
+
+            .tab-btn span.tab-label-full {
+                display: none;
+            }
+
+            .tab-btn span.tab-label-short {
+                display: inline;
+            }
+
+            .capability-row {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                padding: 30px;
+            }
+        }
+
+        @media(min-width:768px) {
+            .tab-btn span.tab-label-short {
+                display: none;
+            }
+        }
+
+        @media(max-width:576px) {
+            .hero {
+                padding: 80px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .feature-card,
+            .dark-feature-card {
+                padding: 28px;
+            }
+
+            .section-title h2,
+            .cta h2 {
+                font-size: 28px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta {
+                padding: 50px 24px;
+            }
+
+            .stat-item h3 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- ================= TOP BAR ================= -->
+
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-inner">
+                <div class="top-bar-left">
+                    <a href="mailto:info@cyberguard.com"><i class="fa-solid fa-envelope"></i> info@cyberguard.com</a>
+                    <a href="tel:+18005550199"><i class="fa-solid fa-phone"></i> +1 (800) 555-0199</a>
+                </div>
+                <div class="top-bar-right">
+                    <a href="#"><i class="fa-solid fa-clock"></i> Mon – Fri: 9AM – 6PM</a>
+                    <a href="#"><i class="fa-solid fa-location-dot"></i> New York, USA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= MAIN NAV ================= -->
+
+    <header class="main-nav" id="mainNav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="logo">
+                    <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="logo-text">Cyber<span>Guard</span></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#services" class="active">Services</a></li>
+                    <li><a href="#solutions">Solutions</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="#contact" class="nav-cta desktop-only">Get Consultation</a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="container">
+                <a href="#">Home</a>
+                <a href="#services">Services</a>
+                <a href="#solutions">Solutions</a>
+                <a href="#benefits">Benefits</a>
+                <a href="#contact">Contact</a>
+                <a href="#contact" class="nav-cta">Get Consultation</a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-9">
+                    <div class="hero-label">
+                        <span class="dot"></span>
+                        IT INFRASTRUCTURE MANAGEMENT
+                    </div>
+                    <h1>
+                        Enterprise <span>IT Infra</span><br>
+                        Management Services
+                    </h1>
+                    <p>
+                        Monitor, manage, and secure your entire IT infrastructure with
+                        intelligent Network Monitoring, SIEM & SOR solutions, and
+                        integrated IT Service Desk & Asset Management platforms.
+                    </p>
+                    <div class="hero-btns">
+                        <a href="#services" class="btn-primary-cyber">
+                            Explore Services <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="btn-outline-cyber">
+                            <i class="fa-solid fa-phone"></i> Schedule a Demo
+                        </a>
+                    </div>
+                    <div class="hero-badges">
+                        <div class="hero-badge">
+                            <i class="fa-solid fa-network-wired"></i>
+                            Network Monitoring
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fa-solid fa-eye"></i>
+                            SIEM & SOR
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fa-solid fa-headset"></i>
+                            Service Desk
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= STATS BAR ================= -->
+
+    <section class="stats-bar">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-server"></i>
+                        <h3>10K<span>+</span></h3>
+                        <p>Devices Monitored</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-bell"></i>
+                        <h3>5M<span>+</span></h3>
+                        <p>Events Processed Daily</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-ticket"></i>
+                        <h3>50K<span>+</span></h3>
+                        <p>Tickets Resolved/Month</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <h3>99.9<span>%</span></h3>
+                        <p>Service Availability</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= TABS SECTION ================= -->
+
+    <section class="section-padding tabs-section" id="services">
+
+        <div class="container">
+
+            <div class="section-title">
+                <span class="label">Our Services</span>
+                <h2>IT Infrastructure <span>Management</span></h2>
+                <p>
+                    Comprehensive IT infrastructure management covering network monitoring,
+                    security event intelligence, and complete service desk operations.
+                </p>
+            </div>
+
+            <!-- ========== TAB 1: NMS ========== -->
+
+            <div class="tab-content-area" id="tab-nms">
+
+                <div class="tab-intro">
+                    <div class="tab-intro-text">
+                        <span class="label">Network Monitoring System</span>
+                        <h3>Real-Time <span>Network Visibility</span> & Performance Monitoring</h3>
+                        <p>
+                            Gain complete visibility into your network infrastructure with
+                            enterprise-grade monitoring that tracks every device, link, and
+                            application in real-time. Detect outages before they impact business
+                            and optimize network performance proactively.
+                        </p>
+                    </div>
+                    <div class="tab-intro-visual">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+                            <h4>Device Discovery & Mapping</h4>
+                            <p>Automatically discover and map all network devices, topology, and connections across your
+                                entire infrastructure with zero manual effort.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                            <h4>Performance Monitoring</h4>
+                            <p>Monitor bandwidth utilization, latency, packet loss, CPU, memory, and interface metrics
+                                in real-time with customizable dashboards.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <h4>Alerting & Notifications</h4>
+                            <p>Intelligent threshold-based alerting with multi-channel notifications — email, SMS,
+                                Slack, and webhook integrations for instant response.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-chart-line"></i></div>
+                            <h4>Traffic Analysis</h4>
+                            <p>Deep packet inspection and NetFlow analysis to understand traffic patterns, identify
+                                bottlenecks, and optimize bandwidth allocation.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-rotate"></i></div>
+                            <h4>Automated Remediation</h4>
+                            <p>Trigger automated workflows to restart services, failover links, or execute scripts when
+                                specific network conditions are detected.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-file-lines"></i></div>
+                            <h4>Reporting & Compliance</h4>
+                            <p>Generate scheduled and on-demand reports for SLA compliance, capacity planning, uptime
+                                tracking, and executive summaries.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========== TAB 2: SIEM & SOR ========== -->
+
+            <div class="tab-content-area" id="tab-siem">
+
+                <div class="tab-intro">
+                    <div class="tab-intro-text">
+                        <span class="label">SIEM & SOR</span>
+                        <h3>Security Intelligence <span>& Log Management</span></h3>
+                        <p>
+                            Centralize security event collection, correlation, and analysis
+                            with enterprise SIEM. Complement it with Security Operations
+                            Response (SOR) capabilities for rapid incident investigation,
+                            threat hunting, and automated response orchestration.
+                        </p>
+                    </div>
+                    <div class="tab-intro-visual">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                </div>
+
+                <!-- SIEM Capabilities -->
+                <div class="row g-4 mb-5">
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-database"></i></div>
+                            <h4>Log Collection & Aggregation</h4>
+                            <p>Collect logs from 500+ sources — firewalls, servers, endpoints, cloud platforms,
+                                applications, and databases into a unified platform.</p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> Agent & Agentless Collection</li>
+                                <li><i class="fa-solid fa-check"></i> Real-Time Log Ingestion</li>
+                                <li><i class="fa-solid fa-check"></i> Structured & Unstructured Parsing</li>
+                                <li><i class="fa-solid fa-check"></i> Compressed Long-Term Storage</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="dark-feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                            <h4>Correlation & Threat Detection</h4>
+                            <p>Apply advanced correlation rules, behavioral analytics, and ML models to detect complex
+                                multi-stage attacks across your environment.</p>
+                            <ul class="mt-3">
+                                <li><i class="fa-solid fa-check"></i> Rule-Based Correlation Engine</li>
+                                <li><i class="fa-solid fa-check"></i> UEBA — User & Entity Analytics</li>
+                                <li><i class="fa-solid fa-check"></i> Threat Intelligence Feeds</li>
+                                <li><i class="fa-solid fa-check"></i> Anomaly Detection Models</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- SOR Capabilities -->
+                <h3 style="font-size:28px;font-weight:800;color:#111;margin-bottom:30px;text-align:center;">
+                    Security Operations <span style="color:#5fe33d;">Response (SOR)</span>
+                </h3>
+
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                            <h4>Incident Investigation</h4>
+                            <p>Visual timeline reconstruction of security incidents with full log context, endpoint
+                                telemetry, and network flow data for fast root-cause analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-robot"></i></div>
+                            <h4>SOAR Automation</h4>
+                            <p>Automated incident response playbooks that isolate compromised hosts, block IPs,
+                                quarantine files, and execute containment actions without manual intervention.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-binoculars"></i></div>
+                            <h4>Threat Hunting</h4>
+                            <p>Proactively search for hidden threats, lateral movement, and persistent attackers using
+                                hypothesis-driven queries and behavioral indicators.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========== TAB 3: SERVICE DESK & ASSET MGMT ========== -->
+
+            <div class="tab-content-area" id="tab-service-desk">
+
+                <div class="tab-intro">
+                    <div class="tab-intro-text">
+                        <span class="label">IT Service Desk & Asset Management</span>
+                        <h3>Streamlined <span>IT Operations</span> & Complete Asset Visibility</h3>
+                        <p>
+                            Deliver exceptional IT support with an intelligent service desk
+                            platform, while maintaining a comprehensive inventory of every
+                            IT asset across your organization — from procurement to
+                            decommission.
+                        </p>
+                    </div>
+                    <div class="tab-intro-visual">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                </div>
+
+                <!-- Service Desk -->
+                <h3 style="font-size:28px;font-weight:800;color:#111;margin-bottom:30px;">
+                    <i class="fa-solid fa-headset" style="color:#2962ff;margin-right:10px;font-size:24px;"></i>
+                    IT Service Desk
+                </h3>
+
+                <div class="row g-4 mb-5">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-ticket"></i></div>
+                            <h4>Ticket Management</h4>
+                            <p>End-to-end ticket lifecycle management with automatic routing, prioritization, SLA
+                                tracking, escalation rules, and resolution workflows.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-comments"></i></div>
+                            <h4>Multi-Channel Support</h4>
+                            <p>Accept requests via email, portal, chat, phone, and self-service. Provide omnichannel
+                                support experience for all users across the organization.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-book-open"></i></div>
+                            <h4>Knowledge Base</h4>
+                            <p>Build a self-service knowledge base with articles, FAQs, and troubleshooting guides to
+                                reduce ticket volume and empower end-users.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Asset Management -->
+                <h3 style="font-size:28px;font-weight:800;color:#111;margin-bottom:30px;">
+                    <i class="fa-solid fa-laptop" style="color:#2962ff;margin-right:10px;font-size:24px;"></i>
+                    IT Asset Management
+                </h3>
+
+                <div class="row g-4 mb-5">
+
+                    <div class="col-lg-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-barcode"></i></div>
+                            <h4>Asset Discovery & Inventory</h4>
+                            <p>Automatically discover and catalog all IT assets — hardware, software, licenses, and
+                                cloud resources. Maintain a single source of truth for your entire asset portfolio with
+                                real-time accuracy.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="feature-card">
+                            <div class="fc-icon"><i class="fa-solid fa-life-ring"></i></div>
+                            <h4>Lifecycle Management</h4>
+                            <p>Track every asset from procurement through deployment, maintenance, and retirement.
+                                Automate warranty tracking, renewal alerts, and decommission workflows to maximize asset
+                                value.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Capability Rows -->
+                <div class="capability-row">
+                    <div class="cap-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                    <div>
+                        <h4>SLA & Performance Analytics</h4>
+                        <p>Track service desk KPIs including first-response time, resolution time, customer satisfaction
+                            (CSAT), and agent productivity. Real-time dashboards and automated SLA breach alerts keep
+                            your team accountable and efficient.</p>
+                    </div>
+                </div>
+
+                <div class="capability-row">
+                    <div class="cap-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <h4>Software License & Compliance</h4>
+                        <p>Monitor software license usage, track entitlements, identify compliance gaps, and automate
+                            license reconciliation. Prevent overspending on unused licenses and avoid audit penalties
+                            with continuous compliance tracking.</p>
+                    </div>
+                </div>
+
+                <div class="capability-row">
+                    <div class="cap-icon"><i class="fa-solid fa-link"></i></div>
+                    <div>
+                        <h4>CMDB Integration</h4>
+                        <p>Maintain a Configuration Management Database that maps relationships between assets,
+                            services, users, and business processes. Enable impact analysis and change management with
+                            accurate dependency mapping.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DARK SOLUTIONS HIGHLIGHT ================= -->
+
+    <section class="section-padding dark-section" id="solutions">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Unified Platform</span>
+                <h2>Everything Under <span>One Roof</span></h2>
+                <p>
+                    All three IT infrastructure management pillars integrated into a
+                    single cohesive platform for maximum operational efficiency.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-arrows-spin"></i></div>
+                        <h4>Seamless Integration</h4>
+                        <p>NMS, SIEM, and Service Desk data flows seamlessly between modules, eliminating silos and
+                            providing unified operational intelligence.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-bolt"></i></div>
+                        <h4>Faster Resolution</h4>
+                        <p>Network alerts automatically create Service Desk tickets with full SIEM context, reducing
+                            mean-time-to-resolution by up to 60%.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="dark-feature-card" style="text-align:center;">
+                        <div class="fc-icon" style="margin:0 auto 24px;"><i class="fa-solid fa-brain"></i></div>
+                        <h4>AI-Powered Insights</h4>
+                        <p>Machine learning models analyze data from all three modules to predict failures, recommend
+                            optimizations, and auto-correlate incidents.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= BENEFITS ================= -->
+
+    <section class="section-padding" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Why Choose Us</span>
+                <h2>Benefits Of <span>Our Platform</span></h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-eye"></i>
+                        <h4>Full Visibility</h4>
+                        <p>Complete visibility across networks, security events, and IT assets from a single pane of
+                            glass.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-gauge-simple-high"></i>
+                        <h4>Proactive Ops</h4>
+                        <p>Shift from reactive firefighting to proactive management with predictive analytics and
+                            automation.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-coins"></i>
+                        <h4>Cost Reduction</h4>
+                        <p>Reduce operational costs by 40% through automation, optimized asset utilization, and reduced
+                            downtime.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="benefit-box">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <h4>Compliance Ready</h4>
+                        <p>Built-in compliance frameworks for ISO, SOC 2, HIPAA, PCI-DSS, and GDPR with audit-ready
+                            reports.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="pb-5" id="contact">
+        <div class="container">
+            <div class="cta">
+                <h2>Manage Your IT Infrastructure Smarter</h2>
+                <p>
+                    Get a personalized demo of our IT Infrastructure Management platform
+                    and see how NMS, SIEM & SOR, and Service Desk work together to
+                    transform your IT operations.
+                </p>
+                <a href="#" class="btn-primary-cyber">
+                    Schedule a Demo <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="row g-4">
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-brand">
+                            <a href="#" class="logo">
+                                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                <div class="logo-text">Cyber<span>Guard</span></div>
+                            </a>
+                            <p>
+                                Enterprise-grade IT infrastructure management and cybersecurity
+                                solutions protecting and optimizing organizations worldwide.
+                            </p>
+                        </div>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6">
+                        <h4 class="footer-heading">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+                            <li><a href="#services"><i class="fa-solid fa-chevron-right"></i> Services</a></li>
+                            <li><a href="#solutions"><i class="fa-solid fa-chevron-right"></i> Solutions</a></li>
+                            <li><a href="#benefits"><i class="fa-solid fa-chevron-right"></i> Benefits</a></li>
+                            <li><a href="#contact"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="footer-heading">IT Infra Services</h4>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Network Monitoring</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> SIEM & SOR</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> IT Service Desk</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> Asset Management</a></li>
+                            <li><a href="#"><i class="fa-solid fa-chevron-right"></i> CMDB Integration</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="footer-heading">Contact Us</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>123 Cyber Street, Tech District,<br>New York, NY 10001, USA</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>info@cyberguard.com<br>support@cyberguard.com</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-phone"></i>
+                                <span>+1 (800) 555-0199<br>+1 (212) 555-0147</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CyberGuard. All Rights Reserved.</p>
+                <ul class="footer-bottom-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ================= BACK TO TOP ================= -->
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+
+        /* ===== Sticky Header ===== */
+        const mainNav = document.getElementById('mainNav');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            mainNav.classList.toggle('scrolled', window.scrollY > 50);
+            backToTop.classList.toggle('visible', window.scrollY > 600);
+        });
+
+        /* ===== Back to Top ===== */
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* ===== Mobile Menu ===== */
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const toggleIcon = mobileToggle.querySelector('i');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            toggleIcon.classList.toggle('fa-bars');
+            toggleIcon.classList.toggle('fa-xmark');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                toggleIcon.classList.add('fa-bars');
+                toggleIcon.classList.remove('fa-xmark');
+            });
+        });
+
+        /* ===== Smooth Scroll ===== */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const id = this.getAttribute('href');
+                if (id === '#') return;
+                const target = document.querySelector(id);
+                if (target) {
+                    e.preventDefault();
+                    const offset = mainNav.offsetHeight;
+                    window.scrollTo({
+                        top: target.getBoundingClientRect().top + window.scrollY - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+
+    </script>
+
+</body>
+
+</html>
